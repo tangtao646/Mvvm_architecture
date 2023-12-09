@@ -21,16 +21,28 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initData() {
         binding.tvSkip.setOnClickListener {
-            mainVm.mockRequest()
+            mainVm.mockRequest(false)
         }
         collectEvent()
+    }
+
+    override fun onReloadData() {
+        mainVm.mockRequest(true)
     }
 
     private fun collectEvent() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mainVm.eventFlow.collect {
-                    if (it) startActivity(Intent(this@MainActivity, TestActivity::class.java))
+                    if (it) {
+                        startActivity(
+                            Intent(
+                                this@MainActivity,
+                                TestActivity::class.java
+                            ).apply {
+                                putExtra("title", "我是测试标题")
+                            })
+                    }
                 }
             }
         }

@@ -1,8 +1,9 @@
-package com.tang.baseframe
+package com.tang.baseframe.base.ext
 
 import androidx.lifecycle.viewModelScope
 import com.tang.baseframe.base.data.BaseResponse
 import com.tang.baseframe.base.vm.BaseViewModel
+import com.tang.baseframe.handleException
 import kotlinx.coroutines.launch
 
 /**
@@ -14,6 +15,7 @@ fun <T> BaseViewModel.request(
     request: suspend () -> BaseResponse<T>,
     onSuccess: (T) -> Unit,
     showLoading: Boolean = false,
+    showErrorPage: Boolean = false,
     loadingMsg: String = "加载中..."
 ) {
     viewModelScope.launch {
@@ -25,7 +27,7 @@ fun <T> BaseViewModel.request(
             if (it.success()) {
                 onSuccess(it.responseData())
             } else {
-               setState(BaseViewModel.UILoadingToastState.ToastError(it.responseMsg()))
+                setState(BaseViewModel.UILoadingToastState.Error(it.responseMsg(), showErrorPage))
             }
 
         }.onFailure {

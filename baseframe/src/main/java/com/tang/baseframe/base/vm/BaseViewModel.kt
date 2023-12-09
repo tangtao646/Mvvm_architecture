@@ -18,7 +18,8 @@ open class BaseViewModel : ViewModel() {
     sealed class UILoadingToastState {
         data class ShowLoading(val tips: String = "加载中...") : UILoadingToastState()
         data object HideLoading : UILoadingToastState()
-        data class ToastError(val error: String) : UILoadingToastState()
+        data class Error(val msg: String, val showErrorPage: Boolean = false) :
+            UILoadingToastState()
     }
 
     fun setState(state: UILoadingToastState) {

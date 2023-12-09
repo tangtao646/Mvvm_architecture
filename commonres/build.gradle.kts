@@ -4,18 +4,16 @@ plugins {
 }
 
 android {
-    namespace = "com.tang.baseframe"
+    namespace = "com.tang.commonres"
     compileSdk = 33
 
     defaultConfig {
         minSdk = 24
+        targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
-    buildFeatures {
-        dataBinding = true
-    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -36,13 +34,9 @@ android {
 
 dependencies {
 
-    api("androidx.core:core-ktx:1.9.0")
-    api("androidx.appcompat:appcompat:1.6.1")
-    api("com.google.android.material:material:1.8.0")
-    api("androidx.activity:activity-ktx:1.6.0")
-    api("androidx.fragment:fragment-ktx:1.6.0")
-    api("com.kingja.loadsir:loadsir:1.3.8")
-    implementation(project(mapOf("path" to ":commonres")))
+    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.8.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

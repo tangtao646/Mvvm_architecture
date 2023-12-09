@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "BaseDemo"
 include(":app")
 include(":baseframe")
+include(":commonres")

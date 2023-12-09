@@ -8,14 +8,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@android:color/holo_blue_light"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_fragment"
+            android:id="@+id/tv_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="这是一个fragment页面"
+            android:text="哈哈哈哈，我是带标题的页面哦"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

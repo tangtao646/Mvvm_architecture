@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
+import com.tang.baseframe.base.callback.EmptyCallBack
+import com.tang.baseframe.base.callback.ErrorCallBack
 import com.tang.baseframe.base.vm.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -24,6 +28,7 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
 
     protected lateinit var binding: VB
     private lateinit var loadingDialog: ProgressDialog
+    protected lateinit var loadService: LoadService<*>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,8 +41,8 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModelLoadingCollect()
         initView()
+        viewModelLoadingCollect()
         initData()
         initListener()
 
@@ -47,6 +52,20 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
     abstract fun loadingVms(): Array<out BaseViewModel>
 
     protected open fun initView() {
+        initLoadService()
+        showSuccess()
+        initLoadDialog()
+    }
+
+    private fun initLoadService() {
+        loadService = LoadSir.getDefault().register(binding.root) {
+            showSuccess()
+            onReloadData()
+        }
+    }
+
+
+    protected fun initLoadDialog() {
         loadingDialog = ProgressDialog(requireActivity())
     }
 
@@ -58,6 +77,9 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
 
     }
 
+    protected open fun onReloadData() {
+
+    }
 
     private fun viewModelLoadingCollect() {
         loadingVms().forEach { vm ->
@@ -73,8 +95,11 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
                                 hideLoading()
                             }
 
-                            is BaseViewModel.UILoadingToastState.ToastError -> {
-                                showToast(it.error)
+                            is BaseViewModel.UILoadingToastState.Error -> {
+                                showToast(it.msg)
+                                if (it.showErrorPage) {
+                                    showErrorPage()
+                                }
                             }
 
                             else -> {}
@@ -83,6 +108,18 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
                 }
             }
         }
+    }
+
+    protected fun showSuccess() {
+        loadService.showSuccess()
+    }
+
+    protected fun showErrorPage() {
+        loadService.showCallback(ErrorCallBack::class.java)
+    }
+
+    protected fun showEmptyPage() {
+        loadService.showCallback(EmptyCallBack::class.java)
     }
 
     protected fun showToast(msg: String) {

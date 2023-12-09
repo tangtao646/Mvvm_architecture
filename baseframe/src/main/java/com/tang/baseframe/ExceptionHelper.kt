@@ -11,13 +11,13 @@ import java.net.SocketTimeoutException
  *@Date:2023/12/8 14:51
  */
 
-fun handleException(error: Throwable): BaseViewModel.UILoadingToastState.ToastError {
+fun handleException(error: Throwable): BaseViewModel.UILoadingToastState.Error {
     val errorMsg = when (error) {
         is ConnectException -> "拒绝连接异常"
         is ParseException -> "数据解析异常"
         is SocketTimeoutException -> "连接超时,请重试"
         else -> "未知错误"
     }
-    return BaseViewModel.UILoadingToastState.ToastError(errorMsg)
+    return BaseViewModel.UILoadingToastState.Error(errorMsg)
 
 }

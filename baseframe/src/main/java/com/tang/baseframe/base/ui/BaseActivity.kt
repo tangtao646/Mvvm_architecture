@@ -9,6 +9,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
+import com.tang.baseframe.base.callback.EmptyCallBack
+import com.tang.baseframe.base.callback.ErrorCallBack
 import com.tang.baseframe.base.vm.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -21,31 +25,55 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
 
     protected lateinit var binding: VB
     private lateinit var loadingDialog: ProgressDialog
+    protected lateinit var loadService: LoadService<*>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(layoutInflater, layoutId(), null, false)
-        setContentView(binding.root)
+        setRealContent()
         viewModelLoadingCollect()
         initView()
         initData()
         initListener()
     }
 
-    abstract fun layoutId(): Int
-
-    abstract fun loadingVms(): Array<out BaseViewModel>
-
-    protected open fun initView() {
-        loadingDialog = ProgressDialog(this)
+    protected open fun setRealContent() {
+        setContentView(binding.root)
     }
 
+
+    protected open fun initView() {
+        initLoadService()
+        showSuccess()
+        initLoadDialog()
+    }
+
+    private fun initLoadService() {
+        loadService = LoadSir.getDefault().register(binding.root) {
+            showSuccess()
+            onReloadData()
+        }
+    }
+
+
+    abstract fun layoutId(): Int
+
+    protected open fun loadingVms(): Array<out BaseViewModel> = emptyArray()
+
+
+    protected fun initLoadDialog() {
+        loadingDialog = ProgressDialog(this)
+    }
 
     protected open fun initListener() {
 
     }
 
     protected open fun initData() {
+
+    }
+
+    protected open fun onReloadData() {
 
     }
 
@@ -64,8 +92,11 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
                                 hideLoading()
                             }
 
-                            is BaseViewModel.UILoadingToastState.ToastError -> {
-                                showToast(it.error)
+                            is BaseViewModel.UILoadingToastState.Error -> {
+                                showToast(it.msg)
+                                if (it.showErrorPage) {
+                                    showErrorPage()
+                                }
                             }
 
                             else -> {}
@@ -74,6 +105,18 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    protected fun showSuccess() {
+        loadService.showSuccess()
+    }
+
+    protected fun showErrorPage() {
+        loadService.showCallback(ErrorCallBack::class.java)
+    }
+
+    protected fun showEmptyPage() {
+        loadService.showCallback(EmptyCallBack::class.java)
     }
 
     protected fun showToast(msg: String) {

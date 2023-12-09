@@ -15,17 +15,17 @@ import kotlinx.coroutines.launch
  *@Description:
  *@Date:2023/12/8 10:55
  */
-class MainVm : BaseViewModel() {
+class UploadVm : BaseViewModel() {
 
     private val eventChannel = Channel<Boolean>()
     val eventFlow get() = eventChannel.receiveAsFlow()
 
-    fun mockRequest(success: Boolean = true) {
+    fun upload(success: Boolean = true) {
         request(request = {
             delay(500)
             queryData(success)
         }, showLoading = true,
-            loadingMsg = "客官别着急...",
+            loadingMsg = "上传文件中...",
             showErrorPage = true,
             onSuccess = {
                 Log.e("data", "==$it")

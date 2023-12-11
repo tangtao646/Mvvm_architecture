@@ -2,6 +2,7 @@ package com.tang.base
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.tang.base.response.ApiResponse
 import com.tang.baseframe.base.data.BaseResponse
 import com.tang.baseframe.base.vm.BaseViewModel
 import com.tang.baseframe.base.ext.request
@@ -35,24 +36,9 @@ class UploadVm : BaseViewModel() {
             })
     }
 
-    private suspend fun queryData(success: Boolean): BaseResponse<List<String>> {
-        return object : BaseResponse<List<String>>() {
-            override fun responseCode(): Int {
-                return 200
-            }
+    private suspend fun queryData(success: Boolean): ApiResponse<List<String>> {
+        return if (success) ApiResponse(200, "请求成功", arrayListOf("哈哈哈", "大哥说")) else
+            ApiResponse(200, "请求成功", emptyList())
 
-            override fun responseMsg(): String {
-                return "请求失败哦"
-            }
-
-            override fun success(): Boolean {
-                return success
-            }
-
-            override fun responseData(): List<String> {
-                return arrayListOf("哈哈哈", "大哥说")
-            }
-
-        }
     }
 }

@@ -36,4 +36,8 @@ fun <T> BaseViewModel.request(
             setState(toastError)
         }
     }
+
 }
+
+private fun <T> responseListEmpty(it: BaseResponse<T>) =
+    it.responseData() is List<*> && it.responseData() != null && (it.responseData() as List<*>).isEmpty()

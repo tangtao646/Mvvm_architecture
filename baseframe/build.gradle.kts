@@ -42,6 +42,9 @@ dependencies {
     api("androidx.activity:activity-ktx:1.6.0")
     api("androidx.fragment:fragment-ktx:1.6.0")
     api("com.kingja.loadsir:loadsir:1.3.8")
+    api("io.github.scwang90:refresh-layout-kernel:2.0.6")      //核心必须依赖
+    api("io.github.scwang90:refresh-header-classics:2.0.6")   //经典刷新头
+    api("io.github.scwang90:refresh-footer-classics:2.0.6")    //经典加载
     implementation(project(mapOf("path" to ":commonres")))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -26,5 +26,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
+    override fun onReloadData() {
+        uploadVm.upload(true)
+    }
 
 }

@@ -31,21 +31,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun collectEvent() {
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mainVm.eventFlow.collect {
-                    if (it) {
-                        startActivity(
-                            Intent(
-                                this@MainActivity,
-                                TestActivity::class.java
-                            ).apply {
-                                putExtra("title", "我是测试标题")
-                            })
-                    }
-                }
-            }
-        }
+//        lifecycleScope.launch {
+//            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                mainVm.eventFlow.collect {
+//                    if (it) {
+//                        startActivity(
+//                            Intent(
+//                                this@MainActivity,
+//                                TestActivity::class.java
+//                            ).apply {
+//                                putExtra("title", "我是测试标题")
+//                            })
+//                    }
+//                }
+//            }
+//        }
     }
 
 

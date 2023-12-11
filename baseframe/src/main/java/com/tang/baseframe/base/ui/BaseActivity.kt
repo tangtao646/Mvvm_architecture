@@ -13,6 +13,8 @@ import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.tang.baseframe.base.callback.EmptyCallBack
 import com.tang.baseframe.base.callback.ErrorCallBack
+import com.tang.baseframe.base.ext.showEmpty
+import com.tang.baseframe.base.ext.showError
 import com.tang.baseframe.base.vm.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -92,6 +94,10 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
                                 hideLoading()
                             }
 
+                            is BaseViewModel.UILoadingToastState.EmptyList -> {
+                                showEmptyPage()
+                            }
+
                             is BaseViewModel.UILoadingToastState.Error -> {
                                 showToast(it.msg)
                                 if (it.showErrorPage) {
@@ -112,11 +118,11 @@ abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
     }
 
     protected fun showErrorPage() {
-        loadService.showCallback(ErrorCallBack::class.java)
+        loadService.showError()
     }
 
     protected fun showEmptyPage() {
-        loadService.showCallback(EmptyCallBack::class.java)
+        loadService.showEmpty()
     }
 
     protected fun showToast(msg: String) {

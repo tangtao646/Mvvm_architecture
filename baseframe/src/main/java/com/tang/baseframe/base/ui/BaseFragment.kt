@@ -95,6 +95,10 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
                                 hideLoading()
                             }
 
+                            is BaseViewModel.UILoadingToastState.EmptyList -> {
+                                showEmptyPage()
+                            }
+
                             is BaseViewModel.UILoadingToastState.Error -> {
                                 showToast(it.msg)
                                 if (it.showErrorPage) {

@@ -20,6 +20,8 @@ open class BaseViewModel : ViewModel() {
         data object HideLoading : UILoadingToastState()
         data class Error(val msg: String, val showErrorPage: Boolean = false) :
             UILoadingToastState()
+
+        data object EmptyList:UILoadingToastState()
     }
 
     fun setState(state: UILoadingToastState) {

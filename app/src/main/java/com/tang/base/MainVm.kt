@@ -35,22 +35,22 @@ class MainVm : BaseViewModel() {
             })
     }
 
-    private suspend fun queryData(success: Boolean): BaseResponse<List<String>> {
-        return object : BaseResponse<List<String>>() {
+    private suspend fun queryData(success: Boolean): BaseResponse<String> {
+        return object : BaseResponse<String>() {
             override fun responseCode(): Int {
-                return 200
+                return if (success) 200 else 400
             }
 
             override fun responseMsg(): String {
-                return "请求失败哦"
+                return if (success) "请求成功" else "请求失败哦"
             }
 
             override fun success(): Boolean {
                 return success
             }
 
-            override fun responseData(): List<String> {
-                return arrayListOf("哈哈哈", "大哥说")
+            override fun responseData(): String {
+                return "哈哈哈哈哈哈，我是测试数据"
             }
 
         }

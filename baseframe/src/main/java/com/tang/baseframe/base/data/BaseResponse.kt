@@ -11,3 +11,4 @@ abstract class BaseResponse<T> {
     abstract fun success(): Boolean
     abstract fun responseData(): T
 }
+

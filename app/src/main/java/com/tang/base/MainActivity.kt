@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.tang.base.databinding.ActivityMainBinding
+import com.tang.baseframe.base.helper.startPage
 import com.tang.baseframe.base.ui.BaseActivity
 import com.tang.baseframe.base.vm.BaseViewModel
 import kotlinx.coroutines.launch
@@ -31,21 +32,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun collectEvent() {
-//        lifecycleScope.launch {
-//            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                mainVm.eventFlow.collect {
-//                    if (it) {
-//                        startActivity(
-//                            Intent(
-//                                this@MainActivity,
-//                                TestActivity::class.java
-//                            ).apply {
-//                                putExtra("title", "我是测试标题")
-//                            })
-//                    }
-//                }
-//            }
-//        }
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mainVm.eventFlow.collect {
+                    if (it) {
+                        startPage(TestActivity::class.java) {
+                            putExtra("title", "我是测试标题")
+                        }
+                    }
+                }
+            }
+        }
     }
 
 

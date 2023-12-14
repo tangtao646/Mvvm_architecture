@@ -2,6 +2,7 @@ package com.tang.base
 
 import androidx.activity.viewModels
 import com.tang.base.databinding.ActivitySampleTitleBinding
+import com.tang.baseframe.base.helper.startPage
 import com.tang.baseframe.base.ui.BaseTitleBarActivity
 import com.tang.baseframe.base.vm.BaseViewModel
 
@@ -24,6 +25,7 @@ class SampleTitleActivity : BaseTitleBarActivity<ActivitySampleTitleBinding>() {
         super.initListener()
         binding.tvTest.setOnClickListener {
             testVm.upload(false)
+
         }
     }
 

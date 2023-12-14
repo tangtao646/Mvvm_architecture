@@ -28,7 +28,7 @@ class MainVm : BaseViewModel() {
             loadingMsg = "客官别着急...",
             showErrorPage = true,
             onSuccess = {
-                Log.e("data", "==$it")
+                Log.e("data","==$it")
                 viewModelScope.launch {
                     eventChannel.send(true)
                 }

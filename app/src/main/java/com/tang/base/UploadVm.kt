@@ -1,11 +1,9 @@
 package com.tang.base
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.tang.base.response.ApiResponse
-import com.tang.baseframe.base.data.BaseResponse
-import com.tang.baseframe.base.vm.BaseViewModel
 import com.tang.baseframe.base.ext.request
+import com.tang.baseframe.base.vm.BaseViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -29,7 +27,6 @@ class UploadVm : BaseViewModel() {
             loadingMsg = "上传文件中...",
             showErrorPage = true,
             onSuccess = {
-                Log.e("data", "==$it")
                 viewModelScope.launch {
                     eventChannel.send(true)
                 }

@@ -1,8 +1,11 @@
 package com.tang.base
 
+import android.graphics.Color
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.tang.base.databinding.ActivityTestBinding
+import com.tang.baseframe.base.helper.changeStatusBar
+import com.tang.baseframe.base.helper.immerse
 import com.tang.baseframe.base.ui.BaseActivity
 import com.tang.baseframe.base.ui.BaseTitleBarActivity
 import com.tang.baseframe.base.vm.BaseViewModel
@@ -17,6 +20,7 @@ class TestActivity : BaseTitleBarActivity<ActivityTestBinding>() {
     override fun title(): String = intent?.getStringExtra("title") ?: ""
     override fun initView() {
         super.initView()
+        changeStatusBar(Color.TRANSPARENT,false)
         supportFragmentManager.beginTransaction().add(R.id.container, HomeFragment()).commitNow()
     }
 

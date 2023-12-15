@@ -6,6 +6,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.tang.base.databinding.ActivityMainBinding
+import com.tang.baseframe.base.helper.changeStatusBar
+import com.tang.baseframe.base.helper.immerse
 import com.tang.baseframe.base.helper.startPage
 import com.tang.baseframe.base.ui.BaseActivity
 import com.tang.baseframe.base.vm.BaseViewModel
@@ -19,6 +21,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun loadingVms(): Array<out BaseViewModel> = arrayOf(mainVm)
 
+    override fun initView() {
+        super.initView()
+        changeStatusBar()
+
+    }
 
     override fun initData() {
         binding.tvSkip.setOnClickListener {
@@ -36,7 +43,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mainVm.eventFlow.collect {
                     if (it) {
-                        startPage(TestActivity::class.java) {
+                        startPage(ImmerseActivity::class.java) {
                             putExtra("title", "我是测试标题")
                         }
                     }

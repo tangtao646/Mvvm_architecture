@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-
+    implementation(project(mapOf("path" to ":commonres")))
     implementation(project(mapOf("path" to ":base-architecture")))
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:2.19.0")

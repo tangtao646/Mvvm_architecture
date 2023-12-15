@@ -20,6 +20,11 @@
         <activity
             android:name=".SampleTitleActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ImmerseActivity"
+            android:exported="false"
+           />
         <activity
             android:name=".MainActivity"
             android:exported="true">

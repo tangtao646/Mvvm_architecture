@@ -1,4 +1,4 @@
-package com.tang.base
+package com.tang.base.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope

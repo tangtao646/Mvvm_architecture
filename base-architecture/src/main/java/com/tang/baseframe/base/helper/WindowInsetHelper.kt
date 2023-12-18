@@ -1,11 +1,9 @@
 package com.tang.baseframe.base.helper
 
-import android.R
 import android.app.Activity
 import android.graphics.Color
 import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -14,17 +12,13 @@ import androidx.core.view.updateLayoutParams
 
 /**
  *@Author tangtao
- *@Description:
+ *@Description: 9.0以下，延申状态栏没法适配间距，不好用
  *@Date:2023/12/15 14:58
  */
 
-private fun Activity.windowRootView(): FrameLayout {
-    return findViewById(R.id.content)
-}
 
 private fun Activity.insetsControllerCompat(): WindowInsetsControllerCompat {
-    val windowRootView = windowRootView()
-    return WindowCompat.getInsetsController(window, windowRootView)
+    return WindowCompat.getInsetsController(window, window.decorView)
 }
 
 
@@ -40,10 +34,10 @@ fun Activity.changeStatusBar(barColor: Int = Color.RED, darkText: Boolean = true
 fun Activity.immerse(fitSys: Boolean = true, marginView: View? = null) {
     WindowCompat.setDecorFitsSystemWindows(window, fitSys)
     ViewCompat.setOnApplyWindowInsetsListener(
-        windowRootView()
+        window.decorView
     ) { v, insets ->
-        val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
-        marginView?.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+        val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        marginView?.updateLayoutParams<MarginLayoutParams> {
             topMargin = statusBarInsets.top
         }
         insets

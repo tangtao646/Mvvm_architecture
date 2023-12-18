@@ -1,25 +1,27 @@
 package com.tang.base
 
-import android.content.Intent
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.tang.base.databinding.ActivityMainBinding
+import com.tang.base.viewmodel.MainVm
+import com.tang.base.viewmodel.WanViewModel
 import com.tang.baseframe.base.helper.changeStatusBar
-import com.tang.baseframe.base.helper.immerse
 import com.tang.baseframe.base.helper.startPage
 import com.tang.baseframe.base.ui.BaseActivity
 import com.tang.baseframe.base.vm.BaseViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private val mainVm: MainVm by viewModels()
+    private val wanViewModel: WanViewModel by viewModels()
 
     override fun layoutId(): Int = R.layout.activity_main
 
-    override fun loadingVms(): Array<out BaseViewModel> = arrayOf(mainVm)
+    override fun loadingVms(): Array<out BaseViewModel> = arrayOf(mainVm, wanViewModel)
 
     override fun initView() {
         super.initView()
@@ -29,13 +31,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initData() {
         binding.tvSkip.setOnClickListener {
-            mainVm.mockRequest(false)
+            // mainVm.mockRequest(false)
+            wanViewModel.queryBanner()
         }
         collectEvent()
+        collectData()
     }
 
     override fun onReloadData() {
-        mainVm.mockRequest(true)
+//        mainVm.mockRequest(true)
+        wanViewModel.queryBanner()
+    }
+
+    private fun collectData() {
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                wanViewModel.bannerFlow.collectLatest {
+                    binding.bannerInfo.text = it.toString()
+                }
+            }
+        }
     }
 
     private fun collectEvent() {

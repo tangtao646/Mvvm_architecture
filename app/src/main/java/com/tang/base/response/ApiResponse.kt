@@ -7,17 +7,17 @@ import com.tang.baseframe.base.data.BaseResponse
  *@Description:
  *@Date:2023/12/11 9:27
  */
-class ApiResponse<T>(val code: Int, val msg: String, val data: T) : BaseResponse<T>() {
+class ApiResponse<T>(val errorCode: Int, val errorMsg: String, val data: T) : BaseResponse<T>() {
     override fun responseCode(): Int {
-        return code
+        return errorCode
     }
 
     override fun responseMsg(): String {
-        return msg
+        return errorMsg
     }
 
     override fun success(): Boolean {
-        return code == 200
+        return errorCode == 0
     }
 
     override fun responseData(): T {

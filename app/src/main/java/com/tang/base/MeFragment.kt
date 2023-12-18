@@ -2,8 +2,9 @@ package com.tang.base
 
 import android.graphics.Color
 import androidx.fragment.app.viewModels
-import com.tang.base.databinding.FragmentHomeBinding
 import com.tang.base.databinding.FragmentMeBinding
+import com.tang.base.viewmodel.MainVm
+import com.tang.base.viewmodel.UploadVm
 import com.tang.baseframe.base.helper.changeStatusBar
 import com.tang.baseframe.base.helper.immerse
 import com.tang.baseframe.base.ui.BaseFragment

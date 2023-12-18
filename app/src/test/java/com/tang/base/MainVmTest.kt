@@ -1,5 +1,6 @@
 package com.tang.base
 
+import com.tang.base.viewmodel.MainVm
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancelAndJoin
@@ -15,7 +16,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import java.util.logging.Logger
 
 /**
  * @Author tangtao

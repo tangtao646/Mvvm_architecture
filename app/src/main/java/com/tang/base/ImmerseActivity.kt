@@ -9,6 +9,8 @@ import com.tang.baseframe.base.ui.BaseActivity
  *@Date:2023/12/15 16:39
  */
 class ImmerseActivity : BaseActivity<ActivityImmerseBinding>() {
+
+
     override fun layoutId(): Int {
         return R.layout.activity_immerse
     }

@@ -5,6 +5,7 @@ import com.tang.baseframe.base.data.BaseResponse
 import com.tang.baseframe.base.state.UILoadState
 import com.tang.baseframe.base.vm.BaseViewModel
 import com.tang.baseframe.base.helper.handleException
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -22,6 +23,7 @@ fun <T> BaseViewModel.request(
     viewModelScope.launch {
         runCatching {
             if (showLoading) setState(UILoadState.ShowLoading(loadingMsg))
+            delay(300)
             request()
         }.onSuccess {
             setState(UILoadState.HideLoading)

@@ -1,4 +1,4 @@
-package com.tang.base
+package com.tang.base.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.tang.base.response.ApiResponse

@@ -21,5 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "BaseDemo"
 include(":app")
-include(":base-architecture")
+include(":base-mvvm")
 include(":commonres")

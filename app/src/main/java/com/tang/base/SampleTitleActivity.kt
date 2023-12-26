@@ -1,11 +1,12 @@
 package com.tang.base
 
 import android.graphics.Color
+import android.os.Bundle
 import androidx.activity.viewModels
 import com.tang.base.databinding.ActivitySampleTitleBinding
 import com.tang.base.viewmodel.UploadVm
 import com.tang.baseframe.base.helper.changeStatusBar
-import com.tang.baseframe.base.ui.BaseTitleBarActivity
+import com.tang.baseframe.base.ui.base.BaseTitleBarActivity
 import com.tang.baseframe.base.vm.BaseViewModel
 
 /**
@@ -22,8 +23,8 @@ class SampleTitleActivity : BaseTitleBarActivity<ActivitySampleTitleBinding>() {
 
     override fun loadingVms(): Array<out BaseViewModel> = arrayOf(testVm)
 
-    override fun initView() {
-        super.initView()
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
         changeStatusBar(Color.GREEN)
     }
 

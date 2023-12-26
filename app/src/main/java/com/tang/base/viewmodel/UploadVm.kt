@@ -20,13 +20,13 @@ class UploadVm : BaseViewModel() {
     val eventFlow get() = eventChannel.receiveAsFlow()
 
     fun upload(success: Boolean = true) {
-        request(request = {
+        request(block = {
             delay(500)
             queryData(success)
-        }, showLoading = true,
+        }, isShowDialog = true,
             loadingMsg = "上传文件中...",
             showErrorPage = true,
-            onSuccess = {
+            success = {
                 viewModelScope.launch {
                     eventChannel.send(true)
                 }

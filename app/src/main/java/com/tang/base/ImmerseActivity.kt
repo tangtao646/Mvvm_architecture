@@ -1,7 +1,8 @@
 package com.tang.base
 
+import android.os.Bundle
 import com.tang.base.databinding.ActivityImmerseBinding
-import com.tang.baseframe.base.ui.BaseActivity
+import com.tang.baseframe.base.ui.base.BaseActivity
 
 /**
  *@Author tangtao
@@ -15,8 +16,8 @@ class ImmerseActivity : BaseActivity<ActivityImmerseBinding>() {
         return R.layout.activity_immerse
     }
 
-    override fun initView() {
-        super.initView()
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
         supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment())
             .commitNow()
     }

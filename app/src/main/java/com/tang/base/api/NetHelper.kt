@@ -23,8 +23,7 @@ object NetHelper : BaseNetHelper() {
 
     override fun setOkhttpBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder {
         return builder
-            .addInterceptor(HttpLoggingInterceptor())
-        //.addInterceptor(TokenInterceptor())
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
     }
 
 

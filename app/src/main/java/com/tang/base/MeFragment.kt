@@ -1,13 +1,14 @@
 package com.tang.base
 
 import android.graphics.Color
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import com.tang.base.databinding.FragmentMeBinding
 import com.tang.base.viewmodel.MainVm
 import com.tang.base.viewmodel.UploadVm
 import com.tang.baseframe.base.helper.changeStatusBar
 import com.tang.baseframe.base.helper.immerse
-import com.tang.baseframe.base.ui.BaseFragment
+import com.tang.baseframe.base.ui.base.BaseFragment
 import com.tang.baseframe.base.vm.BaseViewModel
 
 /**
@@ -23,12 +24,14 @@ class MeFragment : BaseFragment<FragmentMeBinding>() {
     override fun layoutId(): Int = R.layout.fragment_me
 
     override fun loadingVms(): Array<out BaseViewModel> = arrayOf(mainVm, uploadVm)
+    override fun lazyLoadData() {
 
-    override fun initView() {
-        super.initView()
+    }
+
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
         requireActivity().changeStatusBar(Color.TRANSPARENT, false)
         requireActivity().immerse(false, binding.tvTitle)
-
     }
 
     override fun initData() {

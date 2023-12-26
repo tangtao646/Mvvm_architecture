@@ -21,13 +21,13 @@ class MainVm : BaseViewModel() {
     val eventFlow get() = eventChannel.receiveAsFlow()
 
     fun mockRequest(success: Boolean = true) {
-        request(request = {
+        request(block = {
             delay(500)
             queryData(success)
-        }, showLoading = true,
+        }, isShowDialog = true,
             loadingMsg = "客官别着急...",
             showErrorPage = true,
-            onSuccess = {
+            success = {
                 Log.e("data","==$it")
                 viewModelScope.launch {
                     eventChannel.send(true)

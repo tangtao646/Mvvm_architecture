@@ -1,5 +1,6 @@
 package com.tang.base
 
+import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -9,7 +10,7 @@ import com.tang.base.viewmodel.MainVm
 import com.tang.base.viewmodel.WanViewModel
 import com.tang.baseframe.base.helper.changeStatusBar
 import com.tang.baseframe.base.helper.startPage
-import com.tang.baseframe.base.ui.BaseActivity
+import com.tang.baseframe.base.ui.base.BaseActivity
 import com.tang.baseframe.base.vm.BaseViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,10 +24,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun loadingVms(): Array<out BaseViewModel> = arrayOf(mainVm, wanViewModel)
 
-    override fun initView() {
-        super.initView()
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
         changeStatusBar()
-
     }
 
     override fun initData() {

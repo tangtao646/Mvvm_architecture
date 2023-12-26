@@ -19,13 +19,13 @@ class WanViewModel : BaseViewModel() {
 
     fun queryBanner() {
         request(
-            request = { NetHelper.apiService.queryArticles() },
-            onSuccess = { list ->
+            block = { NetHelper.apiService.queryArticles() },
+            success = { list ->
                 Log.e("banners", "==$list")
                 viewModelScope.launch {
                     bannerFlow.emit(list)
                 }
-            }, showLoading = true
+            }, isShowDialog = true
         )
     }
 }

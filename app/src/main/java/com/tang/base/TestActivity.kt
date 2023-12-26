@@ -1,13 +1,13 @@
 package com.tang.base
 
 import android.graphics.Color
+import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.tang.base.databinding.ActivityTestBinding
 import com.tang.baseframe.base.helper.changeStatusBar
 import com.tang.baseframe.base.helper.immerse
-import com.tang.baseframe.base.ui.BaseActivity
-import com.tang.baseframe.base.ui.BaseTitleBarActivity
+import com.tang.baseframe.base.ui.base.BaseTitleBarActivity
 import com.tang.baseframe.base.vm.BaseViewModel
 
 class TestActivity : BaseTitleBarActivity<ActivityTestBinding>() {
@@ -18,8 +18,8 @@ class TestActivity : BaseTitleBarActivity<ActivityTestBinding>() {
     override fun loadingVms(): Array<out BaseViewModel> = arrayOf(vm)
 
     override fun title(): String = intent?.getStringExtra("title") ?: ""
-    override fun initView() {
-        super.initView()
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
         changeStatusBar(Color.TRANSPARENT,false)
         supportFragmentManager.beginTransaction().add(R.id.container, HomeFragment()).commitNow()
     }
